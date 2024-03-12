@@ -31,33 +31,33 @@ const TodoListScreen: React.FC = () => {
 
   return (
     <KeyboardAwareScrollView
-      keyboardShouldPersistTaps={'handled'}
+      keyboardShouldPersistTaps={"handled"}
       enableOnAndroid={false}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.container}
-      scrollEnabled={false}>
-     
-        <Text style={styles.header}>THINGS TO DO:</Text>
-        <FlatList
-          data={state.todos}
-          renderItem={({item, index}) => <TodoItem item={item} index={index} />}
-          keyExtractor={(_, index) => index?.toString()}
+      scrollEnabled={true}
+    >
+      <Text style={styles.header}>THINGS TO DO:</Text>
+      <FlatList
+        data={state?.todos ?? []}
+        renderItem={({ item, index }) => <TodoItem item={item} index={index} />}
+        keyExtractor={(_, index) => index?.toString()}
+        scrollEnabled={false}
+      />
+      <Text style={styles.doneCount}>DONE: {completedCount}</Text>
+      <View style={styles.footer}>
+        <TextInput
+          style={styles.input}
+          value={input}
+          onChangeText={setInput}
+          returnKeyType={"done"}
+          placeholder="Enter new task"
+          maxLength={20}
         />
-        <Text style={styles.doneCount}>DONE: {completedCount}</Text>
-        <View style={styles.footer}>
-          <TextInput
-            style={styles.input}
-            value={input}
-            onChangeText={setInput}
-            returnKeyType={'done'}
-            placeholder="Enter new task"
-            maxLength={20}
-          />
-          <TouchableOpacity style={styles.addButton} onPress={handleAddTodo}>
-            <Text style={{color: 'white', fontWeight: 'bold'}}>ADD TASK</Text>
-          </TouchableOpacity>
-        </View>
-      
+        <TouchableOpacity style={styles.addButton} onPress={handleAddTodo}>
+          <Text style={{ color: "white", fontWeight: "bold" }}>ADD TASK</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAwareScrollView>
   );
 };
